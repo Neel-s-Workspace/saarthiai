@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #e0f2fe;
+  --color-brand-100: #bae6fd;
+  --color-brand-500: #0ea5e9;
+  --color-brand-600: #0284c7;
+  --color-brand-900: #0c4a6e;
+
+  --color-neon-bg: #0B0B0F;
+  --color-neon-panel: #12121A;
+  --color-neon-border: #232333;
+  --color-neon-blue: #00F0FF;
+  --color-neon-blue-glow: rgba(0, 240, 255, 0.4);
+  --color-neon-purple: #B200FF;
+  --color-neon-purple-glow: rgba(178, 0, 255, 0.4);
+
+  --color-dark-text: #f8fafc;
+  --color-dark-text-muted: #94a3b8;
+
+  --font-sans: "Inter", sans-serif;
+
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-neon-bg);
+    color: var(--color-dark-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@utility neon-card {
+  background-color: var(--color-neon-panel);
+  border: 1px solid var(--color-neon-border);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
+  border-radius: 1rem;
+}
+
+@utility neon-glow-blue {
+  box-shadow: 0 0 15px var(--color-neon-blue-glow);
+  border-color: var(--color-neon-blue);
+}
+
+@utility neon-glow-purple {
+  box-shadow: 0 0 15px var(--color-neon-purple-glow);
+  border-color: var(--color-neon-purple);
+}
+
+@utility neon-text-blue {
+  color: var(--color-neon-blue);
+  text-shadow: 0 0 8px var(--color-neon-blue-glow);
+}
+
+@utility neon-text-purple {
+  color: var(--color-neon-purple);
+  text-shadow: 0 0 8px var(--color-neon-purple-glow);
+}
+
+@utility gradient-text {
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, var(--color-neon-blue), var(--color-neon-purple));
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neon-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neon-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-blue);
+}

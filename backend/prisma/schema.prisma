@@ -1,0 +1,190 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  ADMIN
+  COUNSELOR
+  STUDENT
+}
+
+enum AppointmentStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  role          Role
+  email         String   @unique
+  password_hash String
+  first_name    String
+  last_name     String
+  created_at    DateTime @default(now())
+
+  studentProfile   Student?
+  counselorProfile Counselor?
+
+  sentMessages     Message[] @relation("SentMessages")
+  receivedMessages Message[] @relation("ReceivedMessages")
+  uploadedDocs     Document[]
+  uploadedMaterials Material[]
+}
+
+model Student {
+  id                    Int     @id @default(autoincrement())
+  user_id               Int     @unique
+  user                  User    @relation(fields: [user_id], references: [id])
+  enrollment_no         String  @unique
+  department            String
+  semester              Int
+  cgpa                  Float   @default(0.0)
+  attendance_percentage Float   @default(0.0)
+
+  assigned_counselor_id Int?
+  assigned_counselor    Counselor? @relation("AssignedStudents", fields: [assigned_counselor_id], references: [id])
+
+  appointments Appointment[]
+  feedbacks    Feedback[]
+
+  // New features relations
+  quizAccount      QuizAccount?
+  analytics        StudentAnalytics?
+  careerGoal       CareerGoal?
+  skillProfiles    SkillProfile[]
+  studyNotes       StudyNote[]
+}
+
+model Counselor {
+  id          Int     @id @default(autoincrement())
+  user_id     Int     @unique
+  user        User    @relation(fields: [user_id], references: [id])
+  employee_id String  @unique
+  department  String
+
+  students     Student[]     @relation("AssignedStudents")
+  appointments Appointment[]
+}
+
+model Appointment {
+  id             Int               @id @default(autoincrement())
+  student_id     Int
+  student        Student           @relation(fields: [student_id], references: [id])
+  counselor_id   Int
+  counselor      Counselor         @relation(fields: [counselor_id], references: [id])
+  scheduled_at   DateTime
+  status         AppointmentStatus @default(PENDING)
+  topic          String
+  meeting_notes  String?           @db.Text
+  suggestion     String?           @db.Text
+  created_at     DateTime          @default(now())
+
+  feedback Feedback?
+}
+
+model Message {
+  id          Int      @id @default(autoincrement())
+  sender_id   Int
+  sender      User     @relation("SentMessages", fields: [sender_id], references: [id])
+  receiver_id Int
+  receiver    User     @relation("ReceivedMessages", fields: [receiver_id], references: [id])
+  content     String   @db.Text
+  sent_at     DateTime @default(now())
+  is_read     Boolean  @default(false)
+}
+
+model Document {
+  id            Int      @id @default(autoincrement())
+  uploader_id   Int
+  uploader      User     @relation(fields: [uploader_id], references: [id])
+  file_url      String
+  document_type String
+  uploaded_at   DateTime @default(now())
+}
+
+model Feedback {
+  id             Int         @id @default(autoincrement())
+  appointment_id Int         @unique
+  appointment    Appointment @relation(fields: [appointment_id], references: [id])
+  student_id     Int
+  student        Student     @relation(fields: [student_id], references: [id])
+  rating         Int
+  comments       String?     @db.Text
+  submitted_at   DateTime    @default(now())
+}
+
+// ----------------------------------------------------------------------
+// Phase 6 Additional Models (Gamification, Tools, Analytics, Career)
+// ----------------------------------------------------------------------
+
+model QuizAccount {
+  id          Int      @id @default(autoincrement())
+  student_id  Int      @unique
+  student     Student  @relation(fields: [student_id], references: [id])
+  xp          Int      @default(0)
+  level       Int      @default(1)
+  rank        Int      @default(0) // 0 = unranked
+  matches     QuizMatch[]
+}
+
+model QuizMatch {
+  id            Int         @id @default(autoincrement())
+  account_id    Int
+  account       QuizAccount @relation(fields: [account_id], references: [id])
+  topic         String
+  score         Int
+  opponent_name String?
+  played_at     DateTime    @default(now())
+}
+
+model Material {
+  id            Int      @id @default(autoincrement())
+  uploader_id   Int
+  uploader      User     @relation(fields: [uploader_id], references: [id])
+  title         String
+  file_url      String
+  tags          String[]
+  uploaded_at   DateTime @default(now())
+}
+
+model StudyNote {
+  id            Int      @id @default(autoincrement())
+  student_id    Int
+  student       Student  @relation(fields: [student_id], references: [id])
+  topic         String
+  content       String   @db.Text
+  is_flashcard  Boolean  @default(false)
+  created_at    DateTime @default(now())
+}
+
+model StudentAnalytics {
+  id               Int      @id @default(autoincrement())
+  student_id       Int      @unique
+  student          Student  @relation(fields: [student_id], references: [id])
+  success_score    Int      @default(0)
+  risk_level       String   @default("low") // "low", "moderate", "high", "critical"
+  weekly_study_hrs Float    @default(0.0)
+  last_updated     DateTime @default(now())
+}
+
+model SkillProfile {
+  id          Int      @id @default(autoincrement())
+  student_id  Int
+  student     Student  @relation(fields: [student_id], references: [id])
+  skill_name  String
+  proficiency Int      @default(0) // 0-100
+}
+
+model CareerGoal {
+  id          Int      @id @default(autoincrement())
+  student_id  Int      @unique
+  student     Student  @relation(fields: [student_id], references: [id])
+  target_role String
+  milestones  String[]
+}
