@@ -111,7 +111,7 @@ model Document {
 model Feedback {
   id             Int         @id @default(autoincrement())
   appointment_id Int         @unique
-  appointment    Appointment @relation(fields: [appointment_id], references: [id])
+  appointment    Appointment @relation(fields: [appointment_id], references: [id], onDelete: Cascade)
   student_id     Int
   student        Student     @relation(fields: [student_id], references: [id])
   rating         Int
