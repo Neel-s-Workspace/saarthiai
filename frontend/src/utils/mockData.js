@@ -6,7 +6,7 @@ export const generateMockStudents = (count = 82) => {
         // Attendance between 70% and 98% (Requested 80-95% generally, but we need some <75% for AI alerts)
         const baseAttendance = Math.floor(Math.random() * 25) + 72;
         const cgpa = (Math.random() * (10 - 5.5) + 5.5).toFixed(2);
-        const name = names[Math.floor(Math.random() * names.length)] + (i > names.length ? ` ${i}` : '');
+        const name = names[Math.floor(Math.random() * names.length)] + (i >= names.length ? ` ${i}` : '');
 
         return {
             id: `21${['DCS', 'DIT', 'DEC', 'DME', 'DCL'][Math.floor(Math.random() * 5)]}${String(i + 1).padStart(3, '0')}`,
