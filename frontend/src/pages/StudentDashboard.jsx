@@ -3,6 +3,7 @@ import { Send, Mic, Paperclip, Bot, User, Sparkles, Image, Code, FileText, Compa
 import { useNavigate } from 'react-router-dom';
 
 export default function StudentDashboard() {
+    const fileInputRef = useRef(null);
     const navigate = useNavigate();
     const [input, setInput] = useState('');
     const [messages, setMessages] = useState([
@@ -195,7 +196,8 @@ export default function StudentDashboard() {
                         <div className="flex items-end min-h-[56px]">
 
                             <div className="flex items-center space-x-1 pb-2 pl-2">
-                                <button className="p-2 text-dark-text-muted hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Upload File">
+                                <input type="file" ref={fileInputRef} className="hidden" onChange={(e) => alert("Selected file: " + e.target.files[0]?.name)} />
+                                <button onClick={() => fileInputRef.current?.click()} className="p-2 text-dark-text-muted hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Upload File">
                                     <Paperclip className="w-5 h-5" />
                                 </button>
                                 <button className="p-2 text-dark-text-muted hover:text-white hover:bg-white/10 rounded-lg transition-colors hidden sm:block" title="Upload Image">
