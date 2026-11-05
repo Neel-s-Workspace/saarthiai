@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Briefcase, MapPin, Building, ExternalLink, Filter, Search, Zap } from 'lucide-react';
 
 export default function OpportunityFinder() {
+    const [oppSearch, setOppSearch] = useState('');
     const [jobs] = useState([
         { title: 'Frontend Developer Intern', company: 'Google', location: 'Bengaluru / Remote', match: 94, type: 'Internship', tags: ['React', 'TypeScript', 'UI/UX'] },
         { title: 'Backend Engineering Intern', company: 'Amazon', location: 'Hyderabad', match: 88, type: 'Internship', tags: ['Node.js', 'AWS', 'Microservices'] },
@@ -23,7 +24,7 @@ export default function OpportunityFinder() {
                 <div className="w-full md:w-96 space-y-3">
                     <div className="relative border border-neon-border bg-neon-bg rounded-xl flex items-center px-4 py-3 focus-within:border-neon-blue transition-colors shadow-inner">
                         <Search className="w-5 h-5 text-slate-500 mr-2" />
-                        <input type="text" placeholder="Search roles, skills, or companies..." className="bg-transparent border-none outline-none text-white w-full placeholder-slate-600" />
+                        <input type="text" value={oppSearch} onChange={(e) => setOppSearch(e.target.value)} placeholder="Search roles, skills, or companies..." className="bg-transparent border-none outline-none text-white w-full placeholder-slate-600" />
                     </div>
                 </div>
             </div>
@@ -38,7 +39,7 @@ export default function OpportunityFinder() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {jobs.map((job, idx) => (
+                {jobs.filter(j => j.title.toLowerCase().includes(oppSearch.toLowerCase()) || j.company.toLowerCase().includes(oppSearch.toLowerCase())).map((job, idx) => (
                     <div key={idx} className="bg-neon-panel p-6 rounded-2xl border border-neon-border hover:border-neon-blue transition-all group flex flex-col justify-between hover:shadow-[0_0_20px_rgba(0,240,255,0.1)]">
                         <div>
                             <div className="flex justify-between items-start mb-4">
