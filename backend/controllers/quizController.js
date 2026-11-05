@@ -33,37 +33,43 @@ exports.submitMatchResult = async (req, res) => {
     try {
         const { topic, score, opponent_name } = req.body;
         const studentId = parseInt(req.user?.id || 1);
+        const parsedScore = Number(score) || 0;
 
-        // Find or create account
-        let account = await prisma.quizAccount.findUnique({
-            where: { student_id: studentId }
-        });
-        if (!account) {
-            account = await prisma.quizAccount.create({
-                data: { student_id: studentId, xp: 0, level: 1 }
+        // Wrap operations in an atomic transaction to prevent race conditions
+        const result = await prisma.$transaction(async (tx) => {
+            // Find or create quiz account
+            let account = await tx.quizAccount.findUnique({
+                where: { student_id: studentId }
             });
-        }
-
-        // Add match and add XP
-        const newMatch = await prisma.quizMatch.create({
-            data: {
-                account_id: account.id,
-                topic,
-                score,
-                opponent_name
+            if (!account) {
+                account = await tx.quizAccount.create({
+                    data: { student_id: studentId, xp: 0, level: 1 }
+                });
             }
+
+            // Create match entry
+            const newMatch = await tx.quizMatch.create({
+                data: {
+                    account_id: account.id,
+                    topic,
+                    score: parsedScore,
+                    opponent_name
+                }
+            });
+
+            // Update XP atomically
+            const newXp = account.xp + parsedScore;
+            const newLevel = Math.floor(newXp / 100) + 1;
+
+            const updatedAccount = await tx.quizAccount.update({
+                where: { id: account.id },
+                data: { xp: newXp, level: newLevel }
+            });
+
+            return { match: newMatch, newXp, newLevel };
         });
 
-        // XP logic
-        const newXp = account.xp + score;
-        const newLevel = Math.floor(newXp / 100) + 1; // 1 level per 100 XP
-
-        await prisma.quizAccount.update({
-            where: { id: account.id },
-            data: { xp: newXp, level: newLevel }
-        });
-
-        res.json({ message: 'Match recorded', newXp, newLevel });
+        res.json({ message: 'Match recorded', newXp: result.newXp, newLevel: result.newLevel });
     } catch (error) {
         console.error('Error submitting quiz match:', error);
         res.status(500).json({ error: 'Failed to submit match' });
