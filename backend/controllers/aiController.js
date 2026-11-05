@@ -1,3 +1,12 @@
+// Prompt injection sanitizer helper
+const sanitizePromptInput = (input) => {
+    if (typeof input !== 'string') return '';
+    return input
+        .replace(/[\r\n]+/g, ' ')
+        .replace(/['"<>{}\\]/g, '')
+        .trim()
+        .slice(0, 300);
+};
 const { GoogleGenAI } = require('@google/genai');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -178,11 +187,11 @@ IMPORTANT:
 - You MUST output EVERYTHING in the EXACT JSON format below. Do not add markdown like \`\`\`json. ONLY output the raw parseable JSON object.
 
 USER INPUT:
-- Education: ${educationLevel}
-- Interests: ${currentSkills} (user's current skills/interests)
-- Strengths: ${domainToLearn} (domain they want to learn)
-- Goal: ${goal}
-- Time per day: ${timeAvailable} hours
+- Education: ${sanitizePromptInput(educationLevel)}
+- Interests: ${sanitizePromptInput(currentSkills)} (user's current skills/interests)
+- Strengths: ${sanitizePromptInput(domainToLearn)} (domain they want to learn)
+- Goal: ${sanitizePromptInput(goal)}
+- Time per day: ${Number(timeAvailable) || 2} hours
 
 INSTRUCTIONS:
 Generate a DETAILED TECH LEARNING ROADMAP and map it to the following JSON structure:
