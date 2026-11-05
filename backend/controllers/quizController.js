@@ -31,7 +31,11 @@ exports.getQuizHistory = async (req, res) => {
 
 exports.submitMatchResult = async (req, res) => {
     try {
-        const { topic, score, opponent_name } = req.body;
+                const { topic, score, opponent_name } = req.body;
+        const numericScore = Number(score);
+        if (score === undefined || isNaN(numericScore) || !Number.isInteger(numericScore) || numericScore < 0) {
+            return res.status(400).json({ error: 'Invalid score: score must be a non-negative integer' });
+        }
         const studentId = parseInt(req.user?.id || 1);
         const parsedScore = Number(score) || 0;
 
@@ -58,7 +62,7 @@ exports.submitMatchResult = async (req, res) => {
             });
 
             // Update XP atomically
-            const newXp = account.xp + parsedScore;
+            const newXp = account.xp + numericScore;
             const newLevel = Math.floor(newXp / 100) + 1;
 
             const updatedAccount = await tx.quizAccount.update({
