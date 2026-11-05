@@ -4,12 +4,22 @@ import { FileText, Download, Wand2, CheckCircle2, AlertCircle, RefreshCw } from 
 export default function ResumeBuilder() {
     const [generating, setGenerating] = useState(false);
     const [score, setScore] = useState(72);
+    const [bullets, setBullets] = useState([
+        'Architected a dark-neon themed AI-powered student success platform using React and Node.js.',
+        'Integrated Google Gemini AI to provide predictive analytics and automated career roadmaps.',
+        'Improved data visualization using Recharts, resulting in a 40% clearer diagnostic view for counselors.'
+    ]);
 
     const handleGenerate = () => {
         setGenerating(true);
         setTimeout(() => {
             setGenerating(false);
             setScore(94);
+            setBullets([
+                'Architected high-throughput microservices using React, TypeScript, and Node.js with 99.9% uptime.',
+                'Integrated Gemini AI neural pipelines for real-time predictive student analytics and skill gap evaluation.',
+                'Engineered Recharts telemetry dashboards reducing counselor cognitive triage latency by 45%.'
+            ]);
         }, 3000);
     };
 
@@ -128,9 +138,7 @@ export default function ResumeBuilder() {
                                     <span>Jan 2023 - Present</span>
                                 </div>
                                 <ul className="list-disc list-outside ml-4 text-sm mt-1 space-y-1 text-slate-700">
-                                    <li>Architected a dark-neon themed AI-powered student success platform using React and Node.js.</li>
-                                    <li>Integrated Google Gemini AI to provide predictive analytics and automated career roadmaps.</li>
-                                    <li>Improved data visualization using Recharts, resulting in a 40% clearer diagnostic view for counselors.</li>
+                                    {bullets.map((b, i) => <li key={i}>{b}</li>)}
                                 </ul>
                             </div>
                         </div>
