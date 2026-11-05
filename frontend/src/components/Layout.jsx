@@ -103,7 +103,7 @@ export default function Layout() {
                                 <span className="text-dark-text-muted text-xs">Profile</span>
                             </div>
                         </div>
-                        <button onClick={() => navigate('/login')} className="text-dark-text-muted hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-red-400/10">
+                        <button onClick={() => { localStorage.removeItem('token'); localStorage.removeItem('user'); navigate('/login'); }} className="text-dark-text-muted hover:text-red-400 transition-colors p-2 rounded-lg hover:bg-red-400/10">
                             <LogOut className="w-5 h-5" />
                         </button>
                     </div>
