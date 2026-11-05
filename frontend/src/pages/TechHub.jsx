@@ -18,7 +18,7 @@ export default function TechHub() {
     const categories = [
         { id: 'all', label: 'All Fields' },
         { id: 'programming', label: 'Programming' },
-        { id: 'web', label: 'Web Developement' },
+        { id: 'web', label: 'Web Development' },
         { id: 'ai', label: 'Artificial Intelligence' },
         { id: 'cyber', label: 'Cybersecurity' },
         { id: 'data', label: 'Data Science' }
