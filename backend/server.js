@@ -34,6 +34,30 @@ app.get('/api/quiz/leaderboard', quizController.getLeaderboard);
 app.get('/api/quiz/history', quizController.getQuizHistory);
 app.post('/api/quiz/match', quizController.submitMatchResult);
 
+// Rate limiting middleware for AI endpoints
+const aiRateLimitMap = new Map();
+const aiRateLimiter = (req, res, next) => {
+    const ip = req.ip || req.connection?.remoteAddress || '127.0.0.1';
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000;
+    const maxRequests = 30;
+
+    const record = aiRateLimitMap.get(ip) || { count: 0, resetTime: now + windowMs };
+    if (now > record.resetTime) {
+        record.count = 0;
+        record.resetTime = now + windowMs;
+    }
+    record.count++;
+    aiRateLimitMap.set(ip, record);
+
+    if (record.count > maxRequests) {
+        return res.status(429).json({ error: 'Too many AI requests. Please try again later.' });
+    }
+    next();
+};
+
+app.use('/api/ai', aiRateLimiter);
+
 // AI Routes
 const aiController = require('./controllers/aiController');
 app.post('/api/ai/roadmap', aiController.generateCareerRoadmap);
