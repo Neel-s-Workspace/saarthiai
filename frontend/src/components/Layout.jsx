@@ -116,7 +116,7 @@ export default function Layout() {
             </main>
 
             {/* AI Assistant */}
-            <AskAIAssistant />
+            {path !== '/student' && <AskAIAssistant />}
         </div>
     );
 }
