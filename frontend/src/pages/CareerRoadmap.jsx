@@ -3,6 +3,7 @@ import { Compass, ExternalLink, Sparkles, Target, Zap } from 'lucide-react';
 
 export default function CareerRoadmap() {
     const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
     const [roadmap, setRoadmap] = useState(null);
     const [details, setDetails] = useState({
         major: 'Computer Science',
@@ -24,6 +25,7 @@ export default function CareerRoadmap() {
             }
         } catch (error) {
             console.error("Failed to fetch roadmap", error);
+            setErrorMessage("Unable to generate roadmap from AI service. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -82,6 +84,7 @@ export default function CareerRoadmap() {
                 </div>
             </div>
 
+            {errorMessage && <div className="p-4 bg-red-900/40 border border-red-500 rounded-xl text-red-200 text-sm">{errorMessage}</div>}
             {roadmap && (
                 <div className="space-y-6 animate-in slide-in-from-bottom-4 duration-500">
                     <h2 className="text-2xl font-bold text-white flex items-center">
