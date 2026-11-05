@@ -59,10 +59,16 @@ Do not include any surrounding markdown blocks like \`\`\`json or \`\`\`. Output
             contents: prompt,
         });
 
-        const textResponse = response.text;
-        // Basic extraction of JSON
-        const jsonMatch = textResponse.match(/\[.*\]/s);
-        const roadmap = jsonMatch ? JSON.parse(jsonMatch[0]) : fallbackRoadmap;
+                const textResponse = response.text;
+        let roadmap = fallbackRoadmap;
+        try {
+            const cleanText = textResponse.replace(/```json/gi, '').replace(/```/g, '').trim();
+            const jsonMatch = cleanText.match(/\[[\s\S]*\]/);
+            roadmap = jsonMatch ? JSON.parse(jsonMatch[0]) : JSON.parse(cleanText);
+        } catch (e) {
+            console.warn("Roadmap JSON parsing failed, using fallback:", e.message);
+            roadmap = fallbackRoadmap;
+        }
 
         res.json({ roadmap });
     } catch (error) {
