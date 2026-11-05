@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Target, Search, BarChart3, Star, Zap } from 'lucide-react';
 
 export default function CareerMatchEngine() {
+    const [searchQuery, setSearchQuery] = useState('');
     const matches = [
         { role: 'Security Engineer', match: 92, salary: '₹18-24 LPA', demand: 'High', tags: ['Network Sec', 'Cryptography', 'Python'] },
         { role: 'Backend Developer', match: 85, salary: '₹12-18 LPA', demand: 'Very High', tags: ['Node.js', 'PostgreSQL', 'Microservices'] },
@@ -24,7 +25,7 @@ export default function CareerMatchEngine() {
                     <div className="relative w-full max-w-md mx-auto">
                         <input
                             type="text"
-                            placeholder="Explore specific roles..."
+                            value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Explore specific roles..."
                             className="w-full pl-12 pr-4 py-4 bg-neon-bg/80 border border-neon-border rounded-xl focus:ring-2 focus:ring-[#00ff88] focus:border-[#00ff88] text-white placeholder-slate-500 outline-none backdrop-blur-md"
                         />
                         <Search className="w-5 h-5 text-slate-400 absolute left-4 top-4" />
@@ -38,7 +39,7 @@ export default function CareerMatchEngine() {
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {matches.map((match, idx) => (
+                {matches.filter(m => m.role.toLowerCase().includes(searchQuery.toLowerCase())).map((match, idx) => (
                     <div key={idx} className="bg-neon-panel p-6 rounded-2xl border border-neon-border hover:border-[#00ff88]/50 transition-all hover:shadow-[0_0_15px_rgba(0,255,136,0.1)] group">
                         <div className="flex justify-between items-start mb-4">
                             <div>
