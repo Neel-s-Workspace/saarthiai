@@ -3,11 +3,22 @@ const prisma = require('../db');
 
 exports.getAtRiskStudents = async (req, res) => {
     try {
-        const counselorId = parseInt(req.user?.id || 1); // Mock auth
+        const counselorId = parseInt(req.user?.id || req.query?.counselor_id || 1);
+        const userRole = req.user?.role || 'COUNSELOR';
+
+        const filter = {
+            risk_level: { in: ['high', 'critical'] }
+        };
+
+        // Unless Admin, restrict to students assigned to this counselor
+        if (userRole !== 'ADMIN') {
+            filter.student = {
+                assigned_counselor_id: counselorId
+            };
+        }
+
         const atRiskStudents = await prisma.studentAnalytics.findMany({
-            where: {
-                risk_level: { in: ['high', 'critical'] }
-            },
+            where: filter,
             include: {
                 student: {
                     include: { user: true }
