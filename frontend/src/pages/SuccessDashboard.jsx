@@ -102,19 +102,19 @@ export default function SuccessDashboard() {
                     {/* KPI Cards */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                         {[
-                            { label: 'Attendance', value: '84%', delta: '+2%', trend: 'up', color: 'neon-blue', icon: Activity },
-                            { label: 'CGPA', value: '8.4', delta: '+0.2', trend: 'up', color: 'neon-purple', icon: BookOpen },
-                            { label: 'Quizzes Won', value: '23', delta: '+5', trend: 'up', color: '[#00ff88]', icon: Target },
-                            { label: 'Skills Mapped', value: '14', delta: '-1', trend: 'down', color: 'amber-400', icon: BarChart3 },
+                            { label: 'Attendance', value: '84%', delta: '+2%', trend: 'up', colorClass: 'text-neon-blue', icon: Activity },
+                            { label: 'CGPA', value: '8.4', delta: '+0.2', trend: 'up', colorClass: 'text-neon-purple', icon: BookOpen },
+                            { label: 'Quizzes Won', value: '23', delta: '+5', trend: 'up', colorClass: 'text-[#00ff88]', icon: Target },
+                            { label: 'Skills Mapped', value: '14', delta: '-1', trend: 'down', colorClass: 'text-amber-400', icon: BarChart3 },
                         ].map((card) => {
                             const Icon = card.icon;
                             return (
                                 <div key={card.label} className="bg-neon-panel border border-neon-border rounded-2xl p-5 hover:border-neon-blue/30 transition-all group">
                                     <div className="flex items-center justify-between mb-3">
                                         <p className="text-xs font-bold text-dark-text-muted uppercase tracking-wider">{card.label}</p>
-                                        <Icon className={`w-4 h-4 text-${card.color}`} />
+                                        <Icon className={`w-4 h-4 ${card.colorClass}`} />
                                     </div>
-                                    <p className={`text-3xl font-black text-${card.color} mb-1`}>{card.value}</p>
+                                    <p className={`text-3xl font-black ${card.colorClass} mb-1`}>{card.value}</p>
                                     <div className={`flex items-center gap-1 text-xs font-bold ${card.trend === 'up' ? 'text-[#00ff88]' : 'text-red-400'}`}>
                                         {card.trend === 'up' ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
                                         {card.delta} this week
