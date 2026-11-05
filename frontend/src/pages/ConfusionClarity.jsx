@@ -43,6 +43,7 @@ const suggestions = [
 ];
 
 export default function ConfusionClarity() {
+    const [dynamicSteps, setDynamicSteps] = useState(steps);
     const [concept, setConcept] = useState('');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [activeStep, setActiveStep] = useState(null);
@@ -56,11 +57,19 @@ export default function ConfusionClarity() {
         setShowBreakdown(false);
         setAnimatedSteps([]);
         setActiveStep(null);
+        const userSteps = [
+            { icon: '🔍', title: `Identify Root: ${query}`, content: `Analysis of core confusion around ${query}.`, tag: 'Root Cause' },
+            { icon: '🧩', title: 'Break It Down', content: `Key components and definitions for understanding ${query}.`, tag: 'Decomposition' },
+            { icon: '🌍', title: 'Real-World Analogy', content: `Practical intuition and intuitive model for ${query}.`, tag: 'Analogy' },
+            { icon: '📐', title: 'Systematic Derivation', content: `Step-by-step workflow for solving problems in ${query}.`, tag: 'Proof' },
+            { icon: '✅', title: 'Key Takeaways', content: `Summary guidelines to master ${query}.`, tag: 'Clarity' }
+        ];
+        setDynamicSteps(userSteps);
 
         setTimeout(() => {
             setIsAnalyzing(false);
             setShowBreakdown(true);
-            steps.forEach((_, i) => {
+            dynamicSteps.forEach((_, i) => {
                 setTimeout(() => {
                     setAnimatedSteps(prev => [...prev, i]);
                 }, i * 350);
