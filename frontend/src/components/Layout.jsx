@@ -11,18 +11,24 @@ export default function Layout() {
     const [language, setLanguage] = useState('English');
 
     // Only defining student nav items for this UI redesign
-    const navItems = [
+        const navItems = [
         { name: 'Home', icon: Home, path: '/student' },
         { name: 'Tech Hub', icon: Monitor, path: '/student/tech-hub' },
-        { name: 'Notes', icon: FileText, path: '/student/forms' },
-        { name: 'Squeeze', icon: Search, path: '/student/squeeze' },
-        { name: 'Career', icon: Briefcase, path: '/student/career' },
+        { name: 'Squeeze Notes', icon: Search, path: '/student/squeeze' },
+        { name: 'Career Match', icon: Briefcase, path: '/student/career' },
+        { name: 'Career Roadmap', icon: Briefcase, path: '/student/roadmap' },
+        { name: 'Skill Gap', icon: Award, path: '/student/skills' },
         { name: 'Exam Planner', icon: Calendar, path: '/student/exams' },
         { name: 'Confusion → Clarity', icon: BrainCircuit, path: '/student/clarity' },
-        { name: 'Internships', icon: Briefcase, path: '/student/opportunities' },
+        { name: 'Opportunities', icon: Briefcase, path: '/student/opportunities' },
         { name: 'Placement Prep', icon: FileSignature, path: '/student/placement' },
+        { name: 'Quiz Battle', icon: Award, path: '/student/quiz' },
+        { name: 'Counselor Connect', icon: User, path: '/student/connect' },
+        { name: 'Forms', icon: FileText, path: '/student/forms' },
+        { name: 'Wellness', icon: BrainCircuit, path: '/student/wellness' },
         { name: 'Success Dashboard', icon: Award, path: '/student/success' },
-        { name: 'Materials Library', icon: Library, path: 'https://drive.google.com/drive/folders/1P76hGiR7sSukWuLvJNRAJJrQjkgARVzw?usp=drive_link', external: true },
+        { name: 'Counselor Dashboard', icon: User, path: '/counselor' },
+        { name: 'Admin Dashboard', icon: Monitor, path: '/admin' }
     ];
 
     const languages = ['English', 'Hinglish', 'Gujarati'];
