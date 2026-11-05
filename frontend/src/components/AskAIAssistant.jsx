@@ -20,7 +20,7 @@ export default function AskAIAssistant() {
 
     const handleSend = async (customInput = null) => {
         const textToSend = typeof customInput === 'string' ? customInput : input;
-        if (!textToSend.trim()) return;
+        if (!textToSend.trim() || loading) return;
 
         const userMsg = { text: textToSend, sender: 'user' };
         setMessages(prev => [...prev, userMsg]);
