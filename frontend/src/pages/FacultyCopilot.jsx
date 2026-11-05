@@ -23,6 +23,7 @@ const statusColor = {
 };
 
 export default function FacultyCopilot() {
+    const [quizList, setQuizList] = useState(generatedQuiz);
     const [activeTab, setActiveTab] = useState('quiz');
     const [topic, setTopic] = useState('');
     const [questionCount, setQuestionCount] = useState('5');
@@ -36,6 +37,12 @@ export default function FacultyCopilot() {
     const handleGenerate = () => {
         if (!topic.trim()) return;
         setIsGenerating(true);
+        const customQuiz = [
+            { q: `What is the primary architectural concept behind ${topic}?`, options: ['Option A', 'Option B', 'Option C', 'Option D'], correct: 0 },
+            { q: `Which scenario best illustrates an application of ${topic}?`, options: ['Scenario 1', 'Scenario 2', 'Scenario 3', 'Scenario 4'], correct: 1 },
+            { q: `How do trade-offs impact operational efficiency in ${topic}?`, options: ['Trade-off X', 'Trade-off Y', 'Trade-off Z', 'None'], correct: 2 }
+        ];
+        setQuizList(customQuiz);
         setShowQuiz(false);
         setTimeout(() => {
             setIsGenerating(false);
