@@ -52,9 +52,9 @@ export default function CareerMatchEngine() {
                                 </div>
                             </div>
                             <div className="w-16 h-16 rounded-full border-4 border-[#00ff88]/20 flex items-center justify-center relative shadow-[0_0_10px_rgba(0,255,136,0.2)]">
-                                <svg className="absolute w-full h-full -rotate-90">
-                                    <circle cx="28" cy="28" r="28" fill="transparent" stroke="rgba(0, 255, 136, 0.1)" strokeWidth="4" />
-                                    <circle cx="28" cy="28" r="28" fill="transparent" stroke="#00ff88" strokeWidth="4" strokeDasharray="175" strokeDashoffset={175 - (175 * match.match) / 100} className="transition-all duration-1000 ease-out" />
+                                <svg className="absolute w-full h-full -rotate-90" viewBox="0 0 64 64">
+                                    <circle cx="32" cy="32" r="26" fill="transparent" stroke="rgba(0, 255, 136, 0.1)" strokeWidth="4" />
+                                    <circle cx="32" cy="32" r="26" fill="transparent" stroke="#00ff88" strokeWidth="4" strokeDasharray="163" strokeDashoffset={163 - (163 * match.match) / 100} className="transition-all duration-1000 ease-out" />
                                 </svg>
                                 <span className={`text-lg font-extrabold text-[#00ff88]`}>{match.match}%</span>
                             </div>
