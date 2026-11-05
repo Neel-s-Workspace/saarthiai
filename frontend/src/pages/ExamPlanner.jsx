@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, BookOpen, AlertCircle, Play, CheckCircle2 } from 'lucide-react';
 
+    const calculateDaysLeft = (dateStr) => {
+        const examDate = new Date(dateStr);
+        const today = new Date();
+        const diffTime = examDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays > 0 ? `${diffDays} Days Left` : 'Completed';
+    };
+
 export default function ExamPlanner() {
     const [exams] = useState([
         { subject: 'Advanced Algorithms', date: '2023-11-15', diff: 'Hard', status: 'upcoming', topics: ['Dynamic Programming', 'Graph Theory', 'Flow Networks'] },
@@ -41,7 +49,7 @@ export default function ExamPlanner() {
                                 <div>
                                     <h4 className="text-xl font-bold text-white group-hover:text-[#00ff88] transition-colors">{exam.subject}</h4>
                                     <p className="text-sm text-dark-text-muted mt-1 flex items-center">
-                                        <Clock className="w-4 h-4 mr-1 text-neon-blue" /> Scheduled: {exam.date}
+                                        <Clock className="w-4 h-4 mr-1 text-neon-blue" /> Scheduled: {exam.date} ({calculateDaysLeft(exam.date)})
                                     </p>
                                 </div>
                                 <span className={`px-3 py-1 rounded-full text-xs font-bold border ${exam.diff === 'Hard' ? 'bg-red-500/10 text-red-500 border-red-500/50' : 'bg-amber-500/10 text-amber-500 border-amber-500/50'}`}>
