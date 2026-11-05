@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FileText, Clock, CheckCircle, Search, Filter, Plus } from 'lucide-react';
 
 export default function StudentForms() {
+    const [formSearch, setFormSearch] = useState('');
     const [forms] = useState([
         { id: 'FRM-001', title: 'Leave of Absence Request', status: 'Pending Approval', date: '2023-10-25', type: 'Academic' },
         { id: 'FRM-002', title: 'Course Add/Drop Form', status: 'Approved', date: '2023-10-20', type: 'Registration' },
@@ -41,7 +42,7 @@ export default function StudentForms() {
                         <div className="flex space-x-2">
                             <div className="relative border border-neon-border bg-neon-bg rounded-lg flex items-center px-3 py-1.5 focus-within:border-neon-blue">
                                 <Search className="w-4 h-4 text-slate-500 mr-2" />
-                                <input type="text" placeholder="Search ID..." className="bg-transparent border-none outline-none text-white w-full text-sm placeholder-slate-600" />
+                                <input type="text" value={formSearch} onChange={(e) => setFormSearch(e.target.value)} placeholder="Search ID..." className="bg-transparent border-none outline-none text-white w-full text-sm placeholder-slate-600" />
                             </div>
                             <button className="p-2 bg-neon-bg border border-neon-border rounded-lg text-slate-400 hover:text-neon-blue transition-colors">
                                 <Filter className="w-4 h-4" />
@@ -51,7 +52,7 @@ export default function StudentForms() {
 
                     <div className="overflow-y-auto flex-1">
                         <div className="space-y-3">
-                            {forms.map(form => (
+                            {forms.filter(f => f.title.toLowerCase().includes(formSearch.toLowerCase()) || f.id.toLowerCase().includes(formSearch.toLowerCase())).map(form => (
                                 <div key={form.id} className="p-4 bg-neon-bg border border-neon-border rounded-xl hover:border-neon-blue/50 transition-colors flex items-center justify-between group">
                                     <div className="flex items-start space-x-4">
                                         <div className="p-3 bg-neon-panel border border-neon-border rounded-xl">
