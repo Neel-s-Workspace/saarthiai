@@ -3,6 +3,7 @@ import { Monitor, Code, Cpu, Shield, Database, ChevronRight, PlayCircle, Star, S
 
 export default function TechHub() {
     const [activeTab, setActiveTab] = useState('all');
+    const [techSearch, setTechSearch] = useState('');
     const [showAIForm, setShowAIForm] = useState(false);
     const [isGenerating, setIsGenerating] = useState(false);
     const [generatedPath, setGeneratedPath] = useState(null);
@@ -105,7 +106,9 @@ export default function TechHub() {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-dark-text-muted" />
                         <input
                             type="text"
-                            placeholder="Search for skills, languages..."
+                            value={techSearch}
+                        onChange={(e) => setTechSearch(e.target.value)}
+                        placeholder="Search for skills, languages..."
                             className="w-full bg-neon-panel border border-neon-border focus:border-neon-blue text-white rounded-xl py-2 pl-10 pr-4 outline-none text-sm transition-all shadow-inner placeholder:text-dark-text-muted"
                         />
                     </div>
