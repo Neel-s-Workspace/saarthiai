@@ -46,7 +46,7 @@ The 'description' MUST contain the detailed Hinglish advice, topics, and mini-pr
 Do not include any surrounding markdown blocks like \`\`\`json or \`\`\`. Output ONLY the raw JSON array.`;
 
         const response = await aiClient.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
             contents: prompt,
         });
 
@@ -137,7 +137,7 @@ Important Rules for Saarthi AI:
         const fullPrompt = `${systemPrompt}\n\nHere is the conversation so far:\n${conversationText}\n\nSaarthi:`;
 
         const response = await aiClient.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
             contents: fullPrompt,
         });
 
@@ -219,7 +219,7 @@ EXPECTED JSON STRUCTURE:
 }`;
 
         const response = await aiClient.models.generateContent({
-            model: 'gemini-2.5-flash',
+            model: process.env.GEMINI_MODEL || 'gemini-1.5-flash',
             contents: prompt,
         });
 
