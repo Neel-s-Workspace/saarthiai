@@ -125,10 +125,12 @@ Important Rules for Saarthi AI:
 - Maintain a friendly, motivating mentor tone.
 - Your goal is to behave like a true Saarthi (guide) who helps students move step-by-step toward academic and career success.`;
 
-        // Format history into dialogue
+                // Bound conversation history to prevent memory leak and token overflow
+        const MAX_HISTORY = 10;
+        const safeHistory = Array.isArray(history) ? history.slice(-MAX_HISTORY) : [];
         let conversationText = "";
-        if (history && history.length > 0) {
-            conversationText = history.map(msg => `${msg.role === 'user' ? 'Student' : 'Saarthi'}: ${msg.content}`).join('\\n');
+        if (safeHistory.length > 0) {
+            conversationText = safeHistory.map(msg => `${msg.role === 'user' ? 'Student' : 'Saarthi'}: ${msg.content}`).join('\\n');
             conversationText += `\\nStudent: ${query}`;
         } else {
             conversationText = `Student: ${query}`;
