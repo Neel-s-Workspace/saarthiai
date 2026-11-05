@@ -66,6 +66,7 @@ function App() {
           <Route path="/counselor/copilot" element={<FacultyCopilot />} />
 
           <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="*" element={<Navigate to="/student" replace />} />
         </Route>
       </Routes>
     </Router>
