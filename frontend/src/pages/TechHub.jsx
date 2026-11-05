@@ -282,7 +282,7 @@ export default function TechHub() {
                                     {/* User Analysis & Timeline summary */}
                                     <div className="p-5 rounded-2xl bg-gradient-to-r from-neon-blue/10 to-transparent border-l-4 border-neon-blue text-slate-200">
                                         <p className="font-medium text-white mb-2">Analysis:</p>
-                                        <p className="text-sm leading-relaxed">{generatedPath.userAnalysis}</p>
+                                        <p className="text-sm leading-relaxed whitespace-pre-wrap">{generatedPath.userAnalysis}</p>
                                     </div>
 
                                     {/* Meta info */}
@@ -311,7 +311,7 @@ export default function TechHub() {
                                                 <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-neon-bg border border-neon-border p-5 rounded-2xl hover:border-neon-blue/50 transition-colors shadow-lg">
                                                     <span className="text-neon-blue font-bold text-xs mb-1 block">{phase.duration}</span>
                                                     <h3 className="font-bold text-white text-lg mb-2">{phase.title}</h3>
-                                                    <p className="text-sm text-slate-300 mb-3"><span className="text-slate-400 font-semibold text-xs">TOPICS:</span><br/>{phase.topics}</p>
+                                                    <p className="text-sm text-slate-300 mb-3 whitespace-pre-wrap"><span className="text-slate-400 font-semibold text-xs">TOPICS:</span><br/>{phase.topics}</p>
                                                     <div className="bg-neon-panel p-3 rounded-xl mb-3 border border-dashed border-neon-border">
                                                         <p className="text-xs text-yellow-400 font-bold mb-1">Build Project:</p>
                                                         <p className="text-sm text-slate-200">{phase.projects}</p>
