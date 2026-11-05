@@ -270,7 +270,7 @@ export default function TechHub() {
                                             Your Personalized Roadmap
                                         </h2>
                                         <div className="flex gap-3">
-                                            <button onClick={() => setGeneratedPath(null)} className="flex items-center px-4 py-2 bg-neon-bg border border-neon-border rounded-lg text-sm font-medium text-slate-300 hover:text-white transition-all">
+                                            <button onClick={() => handleGenerate()} className="flex items-center px-4 py-2 bg-neon-bg border border-neon-border rounded-lg text-sm font-medium text-slate-300 hover:text-white transition-all">
                                                 <RefreshCw className="w-4 h-4 mr-2" /> Regenerate
                                             </button>
                                             <button className="flex items-center px-4 py-2 bg-gradient-to-r from-neon-purple to-neon-blue rounded-lg text-sm font-bold text-white shadow-lg shadow-neon-blue/20 hover:shadow-neon-blue/50 transition-all">
