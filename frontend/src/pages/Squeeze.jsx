@@ -10,10 +10,10 @@ export default function Squeeze() {
         if (!query.trim()) return;
         setIsSearching(true);
         setTimeout(() => {
-            setResults([
-                { id: 1, type: "PDF", title: "Newton's Laws Complete Guide.pdf", match: "98%", snippet: "...Newton's first law states that an object will remain at rest or in uniform motion..." },
-                { id: 2, type: "Notes", title: "Physics Chapter 4 Summary", match: "85%", snippet: "...acceleration is produced when a force acts on a mass (Second Law)..." },
-                { id: 3, type: "Book", title: "University Physics Vol 1", match: "72%", snippet: "...The third law states that for every action, there is an equal and opposite reaction..." },
+                        setResults([
+                { id: 1, type: "PDF", title: `${query} Complete Guide.pdf`, match: "98%", snippet: `...comprehensive reference and core concepts for ${query}...` },
+                { id: 2, type: "Notes", title: `${query} Chapter Summary`, match: "85%", snippet: `...key principles, formulas, and operational guidelines for ${query}...` },
+                { id: 3, type: "Book", title: `Applied ${query} Handbook`, match: "72%", snippet: `...advanced problem sets, derivations, and practice questions for ${query}...` },
             ]);
             setIsSearching(false);
         }, 1200);
