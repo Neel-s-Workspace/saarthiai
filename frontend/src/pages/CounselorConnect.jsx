@@ -31,7 +31,7 @@ export default function CounselorConnect() {
                     {/* Counselor Info */}
                     <div className="bg-neon-panel p-6 rounded-2xl border border-neon-border flex flex-col items-center text-center">
                         <div className="w-24 h-24 rounded-full border-4 border-neon-blue p-1 mb-4 flex-shrink-0 flex justify-center items-center overflow-hidden">
-                            <img src="https://i.pravatar.cc/150?img=11" alt="Counselor" className="rounded-full rounded-full w-full h-full object-cover" />
+                            <img src="https://i.pravatar.cc/150?img=11" alt="Counselor" className="rounded-full w-full h-full object-cover" />
                         </div>
                         <h3 className="text-xl font-bold text-white">Mr. Amit Sharma</h3>
                         <p className="text-neon-blue text-sm mb-4">Senior Counselor (CSE)</p>
