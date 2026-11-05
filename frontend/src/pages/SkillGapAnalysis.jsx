@@ -3,6 +3,24 @@ import { Target, Layers, Zap, ArrowRight, BookOpen } from 'lucide-react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
 export default function SkillGapAnalysis() {
+    const careerDataMap = {
+        'Full Stack Developer': [
+            { subject: 'Frontend (React)', A: 85, fullMark: 100 },
+            { subject: 'Backend (Node)', A: 65, fullMark: 100 },
+            { subject: 'Database (SQL)', A: 50, fullMark: 100 },
+            { subject: 'Cloud (AWS)', A: 30, fullMark: 100 },
+            { subject: 'System Design', A: 45, fullMark: 100 },
+            { subject: 'Algorithms', A: 70, fullMark: 100 },
+        ],
+        'Data Scientist': [
+            { subject: 'Python', A: 90, fullMark: 100 },
+            { subject: 'Machine Learning', A: 75, fullMark: 100 },
+            { subject: 'Statistics', A: 80, fullMark: 100 },
+            { subject: 'Data Viz', A: 70, fullMark: 100 },
+            { subject: 'SQL', A: 60, fullMark: 100 },
+            { subject: 'Deep Learning', A: 40, fullMark: 100 },
+        ]
+    };
     const [targetCareer, setTargetCareer] = useState('Full Stack Developer');
 
     const [data] = useState([
@@ -54,7 +72,7 @@ export default function SkillGapAnalysis() {
                     <h3 className="text-lg font-bold text-white mb-2 text-center">Competency Matrix vs. {targetCareer}</h3>
 
                     <ResponsiveContainer width="100%" height="90%">
-                        <RadarChart cx="50%" cy="50%" outerRadius="75%" data={data}>
+                        <RadarChart cx="50%" cy="50%" outerRadius="75%" data={careerDataMap[targetCareer] || data}>
                             <PolarGrid stroke="#232333" />
                             <PolarAngleAxis dataKey="subject" tick={{ fill: '#94a3b8', fontSize: 12 }} />
                             <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
