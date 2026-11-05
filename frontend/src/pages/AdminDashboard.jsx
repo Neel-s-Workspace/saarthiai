@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, BookOpen, AlertCircle, CalendarCheck, MoreVertical, Search, TrendingUp, TrendingDown } from 'lucide-react';
+import { Users, BookOpen, AlertCircle, CalendarCheck, Search } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const data = [
