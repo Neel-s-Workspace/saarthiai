@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { MessageSquare, FileText, Award, Briefcase, Calendar, BrainCircuit, Globe, User, LogOut, FileSignature, Folder, Monitor, Search, Library, Home } from 'lucide-react';
+import { FileText, Award, Briefcase, Calendar, BrainCircuit, Globe, User, LogOut, FileSignature, Monitor, Search, Library, Home } from 'lucide-react';
 import AskAIAssistant from './AskAIAssistant';
 
 export default function Layout() {
