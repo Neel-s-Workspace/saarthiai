@@ -126,7 +126,7 @@ export default function AskAIAssistant() {
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                                 placeholder="Ask me anything..."
                                 className="w-full bg-neon-bg border border-neon-border focus:border-neon-blue text-white rounded-xl py-3 pl-4 pr-12 outline-none text-sm transition-colors shadow-inner"
                             />
