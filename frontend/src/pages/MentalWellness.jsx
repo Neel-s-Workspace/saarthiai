@@ -3,6 +3,7 @@ import { HeartPulse, Brain, Zap, ShieldAlert, Sparkles, MessageSquare } from 'lu
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 export default function MentalWellness() {
+    const [showCrisisModal, setShowCrisisModal] = useState(false);
     const [moodData] = useState([
         { day: 'Mon', score: 7 },
         { day: 'Tue', score: 8 },
@@ -26,7 +27,7 @@ export default function MentalWellness() {
                     <p className="text-neon-blue font-medium text-lg">Your safe space for emotional tracking and support.</p>
                 </div>
 
-                <button className="relative z-10 px-6 py-4 bg-red-500/20 hover:bg-red-500 border border-red-500 text-white rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.5)] font-bold transition-all flex items-center group">
+                <button onClick={() => setShowCrisisModal(true)} className="relative z-10 px-6 py-4 bg-red-500/20 hover:bg-red-500 border border-red-500 text-white rounded-xl shadow-[0_0_15px_rgba(239,68,68,0.5)] font-bold transition-all flex items-center group">
                     <ShieldAlert className="w-5 h-5 mr-2 group-hover:animate-bounce" /> Get Immediate Help
                 </button>
             </div>
@@ -99,6 +100,15 @@ export default function MentalWellness() {
                     </button>
                 </div>
             </div>
+            {showCrisisModal && (
+                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+                    <div className="bg-slate-900 border border-red-500/50 p-6 rounded-2xl max-w-md w-full text-center">
+                        <h3 className="text-xl font-bold text-red-400 mb-2">24/7 Crisis Support</h3>
+                        <p className="text-sm text-slate-300 mb-4">Tele-MANAS: 14416 | KIRAN Mental Health: 1800-599-0019</p>
+                        <button onClick={() => setShowCrisisModal(false)} className="px-4 py-2 bg-red-600 text-white font-bold rounded-lg">Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
