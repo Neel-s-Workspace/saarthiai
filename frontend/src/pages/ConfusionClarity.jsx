@@ -43,6 +43,7 @@ const suggestions = [
 ];
 
 export default function ConfusionClarity() {
+    const [uploadedFile, setUploadedFile] = useState(null);
     const [dynamicSteps, setDynamicSteps] = useState(steps);
     const [concept, setConcept] = useState('');
     const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -116,7 +117,8 @@ export default function ConfusionClarity() {
                             <label className="flex items-center gap-2 text-sm text-dark-text-muted hover:text-neon-blue cursor-pointer transition-colors">
                                 <UploadCloud className="w-4 h-4" />
                                 Upload screenshot
-                                <input type="file" className="hidden" accept="image/*" />
+                                <input type="file" onChange={(e) => setUploadedFile(e.target.files[0]?.name || null)} className="hidden" accept="image/*" />
+                        {uploadedFile && <p className="text-xs text-[#00ff88] mt-1">Attached: {uploadedFile}</p>}
                             </label>
                             <div className="flex gap-2">
                                 {showBreakdown && (
