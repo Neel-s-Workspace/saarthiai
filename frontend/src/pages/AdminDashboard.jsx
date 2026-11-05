@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Users, BookOpen, AlertCircle, CalendarCheck, MoreVertical, Search, TrendingUp, TrendingDown } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -12,6 +12,7 @@ const data = [
 ];
 
 export default function AdminDashboard() {
+    const [searchQuery, setSearchQuery] = useState('');
     return (
         <div className="space-y-6 max-w-7xl mx-auto pb-12">
             {/* Header section with search */}
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
                 <div className="relative w-80">
                     <input
                         type="text"
-                        placeholder="Search student or counselor..."
+                        value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="Search student or counselor..."
                         className="w-full pl-10 pr-4 py-3 bg-neon-bg border border-neon-border rounded-xl focus:ring-2 focus:ring-neon-blue focus:border-neon-blue text-white placeholder-slate-600 outline-none"
                     />
                     <Search className="w-5 h-5 text-slate-500 absolute left-3 top-3.5" />
