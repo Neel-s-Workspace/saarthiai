@@ -80,7 +80,6 @@ app.post('/api/auth/login', async (req, res) => {
         res.status(500).json({ error: 'Internal login error' });
     }
 });
-});
 
 // Controllers
 const studentController = require('./controllers/studentController');
