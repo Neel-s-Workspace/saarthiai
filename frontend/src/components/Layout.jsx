@@ -81,15 +81,19 @@ export default function Layout() {
                     <div className="flex items-center justify-between bg-neon-bg border border-neon-border rounded-lg p-2">
                         <Globe className="w-4 h-4 text-dark-text-muted ml-1" />
                         <div className="flex items-center flex-1 justify-end">
-                                                    <select
-                            value={language}
-                            onChange={(e) => {
-                                setLanguage(e.target.value);
-                                localStorage.setItem('saarthi_language', e.target.value);
-                                window.dispatchEvent(new CustomEvent('languageChange', { detail: e.target.value }));
-                            }}
-                            className="bg-transparent text-white text-xs font-bold outline-none cursor-pointer p-1"
-                        >
+                            <select
+                                value={language}
+                                onChange={(e) => {
+                                    setLanguage(e.target.value);
+                                    localStorage.setItem('saarthi_language', e.target.value);
+                                    window.dispatchEvent(new CustomEvent('languageChange', { detail: e.target.value }));
+                                }}
+                                className="bg-transparent text-white text-xs font-bold outline-none cursor-pointer p-1"
+                            >
+                                {languages.map(lang => (
+                                    <option key={lang} value={lang} className="bg-neon-panel">{lang}</option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
