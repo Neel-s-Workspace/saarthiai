@@ -28,10 +28,13 @@ export default function AskAIAssistant() {
         setLoading(true);
 
         try {
+            const token = localStorage.getItem('token');
+            const headers = { 'Content-Type': 'application/json' };
+            if (token) headers['Authorization'] = 'Bearer ' + token;
             const response = await fetch('http://localhost:5000/api/ai/ask', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ query: userMsg.text })
+                headers,
+                body: JSON.stringify({ query: userMsg.text, question: userMsg.text })
             });
             const data = await response.json();
 

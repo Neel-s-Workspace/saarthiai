@@ -78,7 +78,8 @@ Do not include any surrounding markdown blocks like \`\`\`json or \`\`\`. Output
 };
 
 const askAssistant = async (req, res) => {
-    const { query, history } = req.body;
+    const { history } = req.body;
+    const query = req.body.query || req.body.question || "";
 
     const offlineMessage = "Hello! I am currently running in offline mode. I can still guide you to explore the Placement Preparation and Career Match Engine on your dashboard!";
     const errorMessage = "My connection to the neural mainframe was interrupted, but don't let that stop you! Keep focusing on your coursework and let me know if you need help later.";

@@ -32,6 +32,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
 
         <Route element={<Layout />}>
@@ -65,7 +66,6 @@ function App() {
           <Route path="/counselor/early-warning" element={<EarlyWarning />} />
           <Route path="/counselor/copilot" element={<FacultyCopilot />} />
 
-          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="*" element={<Navigate to="/student" replace />} />
         </Route>
       </Routes>
